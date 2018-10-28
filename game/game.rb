@@ -31,7 +31,7 @@ class Game
     coloma.add_edge_cities([sutter_creek, virginia_city])
     angels_camp.add_edge_cities([nevada_city, sutter_creek, virginia_city])
     nevada_city.add_edge_cities([angels_camp])
-    virginia_city.add_edge_cities([angels_camp,  coloma, midas, el_dorado_cn])
+    virginia_city.add_edge_cities([angels_camp, coloma, midas, el_dorado_cn])
     midas.add_edge_cities([el_dorado_cn, virginia_city])
     el_dorado_cn.add_edge_cities([midas, virginia_city])
 

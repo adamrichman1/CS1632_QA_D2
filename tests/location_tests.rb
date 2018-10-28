@@ -6,7 +6,5 @@ require_relative '../game/location.rb'
 # import Minitest.Test;
 # public class PredictorTest extends Test { ... }
 
-
 class LocationTest < Minitest::Test
-
 end
