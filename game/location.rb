@@ -1,6 +1,5 @@
 # Class to hold location data
 class Location
-
   def initialize(city_name, max_silver, max_gold)
     @city_name = city_name
     @max_silver = max_silver
@@ -12,20 +11,11 @@ class Location
     @edge_cities = edge_cities
   end
 
-  def city_name
-    @city_name
-  end
+  attr_reader :city_name
 
-  def max_silver
-    @max_silver
-  end
+  attr_reader :max_silver
 
-  def max_gold
-    @max_gold
-  end
+  attr_reader :max_gold
 
-  def edge_cities
-    @edge_cities
-  end
-
+  attr_reader :edge_cities
 end

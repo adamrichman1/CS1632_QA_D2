@@ -7,19 +7,11 @@ class Prospector
     @silver = 0
   end
 
-  def id
-    @id
-  end
+  attr_reader :id
 
-  def cur_location
-    @cur_location
-  end
+  attr_reader :cur_location
 
-  def gold
-    @gold
-  end
+  attr_reader :gold
 
-  def silver
-    @silver
-  end
+  attr_reader :silver
 end
