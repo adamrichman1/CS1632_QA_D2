@@ -8,5 +8,5 @@ require_relative '../game/location.rb'
 
 
 class LocationTest < Minitest::Test
-  def
+
 end
