@@ -98,18 +98,18 @@ class Game
     puts '******** Prospector #' + prospector_iteration.to_s + ' Results ********'
     puts "\nTotal Silver Found: " + silver.to_s + get_ounces_string(silver)
     puts 'Total Gold Found: ' + gold.to_s + get_ounces_string(gold)
-    if (silver * 1.31).to_s.split('.')[1].length == 1
-      suffix = '0'
-    else
-      suffix = ''
-    end
-    puts "Silver Value: $" + (silver * 1.31).to_s + suffix
-    if (gold * 20.67).to_s.split('.')[1].length == 1
-      suffix = '0'
-    else
-      suffix = ''
-    end
-    puts "Gold Value: $" + (gold * 20.67).to_s + suffix + "\n"
+    suffix = if (silver * 1.31).to_s.split('.')[1].length == 1
+               '0'
+             else
+               ''
+             end
+    puts 'Silver Value: $' + (silver * 1.31).to_s + suffix
+    suffix = if (gold * 20.67).to_s.split('.')[1].length == 1
+               '0'
+             else
+               ''
+             end
+    puts 'Gold Value: $' + (gold * 20.67).to_s + suffix + "\n"
   end
 
   def get_ounces_string(num_ounces)
