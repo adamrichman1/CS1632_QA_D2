@@ -32,9 +32,9 @@ class GameTest < Minitest::Test
     refute_equal(init_state, test_game.get_next_state(init_state))
   end
 
-  def mine_test
+  def test_mine_returns_array
     test_game = Game::new(234, 1)
     init_state = test_game.build_graph
-    assert_kind_of(Integer[], test_game.mine(0, init_state, 0, 0))
+    assert_kind_of(Array, test_game.mine(0, init_state, 0, 0))
   end
 end

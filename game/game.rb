@@ -62,9 +62,11 @@ class Game
 
       # Base case = silver == 0 & gold == 0
       if iteration <= 3 && silver.zero? && gold.zero?
-        return print_mining_results(cur_silver, cur_gold)
+        print_mining_results(cur_silver, cur_gold)
+        return [cur_silver, cur_gold]
       elsif iteration <= 5 && silver < 3 && gold < 2
-        return print_mining_results(cur_silver, cur_gold)
+        print_mining_results(cur_silver, cur_gold)
+        return [cur_silver, cur_gold]
       end
     end
   end
@@ -89,7 +91,6 @@ class Game
       puts "\tSilver found: " + silver.to_s + get_ounces_string(silver)
       puts "\tGold found: " + gold.to_s + get_ounces_string(gold)
     end
-    [silver, gold]
   end
 
   def print_game_results(prospector_iteration, game_results)
