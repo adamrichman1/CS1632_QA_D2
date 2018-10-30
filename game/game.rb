@@ -11,7 +11,7 @@ class Game
     until prospector_iteration > @num_prospectors
       puts '*-*-* Prospector #' + prospector_iteration.to_s + ' *-*-*'
       init_state = build_graph
-      print_game_results(prospector_iteration, travel(0, init_state, 0, 0))
+      print_game_results(prospector_iteration, travel(1, init_state, 0, 0))
       prospector_iteration += 1
     end
   end
@@ -40,11 +40,11 @@ class Game
   end
 
   def travel(iteration, cur_state, cur_silver, cur_gold)
-    # Base case iteration == 5
-    [cur_silver, cur_gold] if iteration == 5
+    # Base case iteration == 6
+    return [cur_silver, cur_gold] if iteration == 6
 
-    puts 'Traveling to ' + cur_state.city_name + ' with ' + cur_silver.to_s + ' oz. in Silver & ' + cur_gold.to_s +
-         ' oz. in Gold'
+    puts 'Iteration ' + iteration.to_s + ': Traveling to ' + cur_state.city_name + ' with ' + cur_silver.to_s +
+             ' oz. in Silver & ' + cur_gold.to_s + ' oz. in Gold'
 
     mining_results = mine(iteration, cur_state, 0, 0)
     cur_silver += mining_results[0]
@@ -53,26 +53,24 @@ class Game
   end
 
   def mine(iteration, cur_state, cur_silver, cur_gold)
-    # Mine and update values
-    silver = get_random_number(0, cur_state.max_silver)
-    gold = get_random_number(0, cur_state.max_gold)
-    cur_silver += silver
-    cur_gold += gold
+    while true
+      # Mine and update values
+      silver = get_random_number(0, cur_state.max_silver)
+      gold = get_random_number(0, cur_state.max_gold)
+      cur_silver += silver
+      cur_gold += gold
 
-    # Base case = silver == 0 & gold == 0
-    if iteration < 3
-      print_mining_results(cur_silver, cur_gold) if silver.zero? && gold.zero?
-    elsif iteration < 5
-      print_mining_results(cur_silver, cur_gold) if silver >= 3 && gold >= 2
-    else raise Exception('>>> Illegal value for iteration: ' + iteration.to_s + ' <<<')
+      # Base case = silver == 0 & gold == 0
+      if iteration <= 3 && silver.zero? && gold.zero?
+        return print_mining_results(cur_silver, cur_gold)
+      elsif iteration <= 5 && silver < 3 && gold < 2
+        return print_mining_results(cur_silver, cur_gold)
+      end
     end
-
-    # Recursive case
-    mine(iteration, cur_state, cur_silver, cur_gold)
   end
 
   def get_next_state(cur_state)
-    cur_state[get_random_number(0, cur_state.edge_cities.length - 1)]
+    cur_state.edge_cities[get_random_number(0, cur_state.edge_cities.length - 1)]
   end
 
   def get_random_number(min, max)
@@ -100,8 +98,18 @@ class Game
     puts '******** Prospector #' + prospector_iteration.to_s + ' Results ********'
     puts "\nTotal Silver Found: " + silver.to_s + get_ounces_string(silver)
     puts 'Total Gold Found: ' + gold.to_s + get_ounces_string(gold)
-    puts "\nSilver Value: $" + (silver * 1.31).to_s + '0' if (silver * 1.31).to_s.split('.')[1].length == 1
-    puts 'Gold Value: $' + (gold * 20.67).to_s + '0' if (gold * 20.67).to_s.split('.')[1].length == 1 + "\n"
+    if (silver * 1.31).to_s.split('.')[1].length == 1
+      suffix = '0'
+    else
+      suffix = ''
+    end
+    puts "Silver Value: $" + (silver * 1.31).to_s + suffix
+    if (gold * 20.67).to_s.split('.')[1].length == 1
+      suffix = '0'
+    else
+      suffix = ''
+    end
+    puts "Gold Value: $" + (gold * 20.67).to_s + suffix + "\n"
   end
 
   def get_ounces_string(num_ounces)
