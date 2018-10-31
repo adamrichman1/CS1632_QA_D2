@@ -1,4 +1,4 @@
-require_relative 'location.rb'
+require_relative 'location'
 # Control game flow
 class Game
   def initialize(seed, num_prospectors)
@@ -7,6 +7,10 @@ class Game
   end
 
   def play
+    if @num_prospectors < 1
+      puts 'Please play with at least 1 prospector!'
+      raise Exception
+    end
     prospector_iteration = 1
     until prospector_iteration > @num_prospectors
       puts '*-*-* Prospector #' + prospector_iteration.to_s + ' *-*-*'
@@ -44,7 +48,7 @@ class Game
     return [cur_silver, cur_gold] if iteration == 6
 
     puts 'Iteration ' + iteration.to_s + ': Traveling to ' + cur_state.city_name + ' with ' + cur_silver.to_s +
-             ' oz. in Silver & ' + cur_gold.to_s + ' oz. in Gold'
+         ' oz. in Silver & ' + cur_gold.to_s + ' oz. in Gold'
 
     mining_results = mine(iteration, cur_state, 0, 0)
     cur_silver += mining_results[0]
@@ -53,7 +57,7 @@ class Game
   end
 
   def mine(iteration, cur_state, cur_silver, cur_gold)
-    while true
+    loop do
       # Mine and update values
       silver = get_random_number(0, cur_state.max_silver)
       gold = get_random_number(0, cur_state.max_gold)
@@ -67,6 +71,8 @@ class Game
       elsif iteration <= 5 && silver < 3 && gold < 2
         print_mining_results(cur_silver, cur_gold)
         return [cur_silver, cur_gold]
+      elsif iteration > 5
+        raise Exception
       end
     end
   end
